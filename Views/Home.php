@@ -32,7 +32,8 @@
                                 </th>
                                 <th class="col-md-1">
                                     <form action="/home" method="post">
-                                        <span>Действия</span>
+                                        <a href="javascript:void(0);" onclick="parentNode.submit();">Пометки</a>
+                                        <input type="hidden" name="sort" value="resolved">
                                     </form>
                                 </th>
                             </tr>

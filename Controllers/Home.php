@@ -102,7 +102,7 @@ class Home extends Controller
     {
         session_start();
         if ($_SESSION['name'] != 'admin') {
-            exit('You need to be authorized for this');
+            return header("Location: /auth");
         }
         session_write_close();
 
