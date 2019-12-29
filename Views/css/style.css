@@ -5,7 +5,7 @@
 
 .sign-in {
     width: 20%;
-    margin: 50px auto auto;
+    margin: 100px auto auto;
 }
 
 .btn-auth {
@@ -20,4 +20,14 @@
 .small-paddings {
     padding-left: 5px !important;
     padding-right: 5px !important;
+}
+
+.edit-box {
+    margin-top: 10%;
+}
+
+.edit-task {
+    height: 47px;
+    padding: inherit;
+    margin-top: 40px;
 }

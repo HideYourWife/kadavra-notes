@@ -4,6 +4,10 @@
             <div class="box">
                 <div class="box-body">
 
+                    <div class="py-5 text-center">
+                        <p><?=$msg?></p>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-borered table-hover">
                             <thead>
@@ -28,8 +32,7 @@
                                 </th>
                                 <th class="col-md-1">
                                     <form action="/home" method="post">
-                                        <a href="javascript:void(0);" onclick="parentNode.submit();">Действия</a>
-                                        <input type="hidden" name="sort" value="text">
+                                        <span>Действия</span>
                                     </form>
                                 </th>
                             </tr>
@@ -44,18 +47,27 @@
                                     <td class="col-md-6"><?=$task['text']?></td>
 
                                     <td class="col-md-1">
-                                        <a href="/home/update/?id=<?=$task['id']?>" title="Редактировать">
-                                            <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
-                                                <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
+                                        <?if ($is_auth):?>
+                                            <a href="/home/edit/?id=<?=$task['id']?>" title="Редактировать">
+                                                <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </a>
+                                        <?endif;?>
+
+                                        <?if ($task['resolved'] == 1):?>
+                                                <svg class="bi bi-check-circle" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M17.354 4.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L10 11.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd" d="M10 4.5a5.5 5.5 0 105.5 5.5.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63.5.5 0 11-.5.865A5.472 5.472 0 0010 4.5z" clip-rule="evenodd"></path>
+                                                </svg>
+                                        <?endif;?>
+
+                                        <?if ($task['updated_at']):?>
+                                            <svg class="bi bi-person" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M15 16s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002zM5.022 15h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C13.516 12.68 12.289 12 10 12c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002zM10 9a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"></path>
                                             </svg>
-                                        </a>
-
-
-                                        <a class="delete" href=""
-                                           title="Перевести статус = On">
-                                            <i class="fa fa-fw fa-refresh"></i>
-                                        </a>
+                                        <?endif;?>
 
 
                                     </td>
@@ -103,30 +115,18 @@
                             </div>
                         </form>
 
-
-                    <?if (!empty($errors)):?>
+                    <?if (!$is_auth):?>
                         <div class="text-center">
-                            <?foreach ($errors as $error):?>
-                                <h3 style="color: red">
-                                    <?=$error?>
-                                </h3>
-                            <?endforeach;?>
+                            <a class="btn btn-lg btn-primary btn-block sign-in" type="submit" href="/auth">Авторизация</a>
+                        </div>
+                    <?else:?>
+                        <div class="text-center">
+                            <a class="btn btn-lg btn-primary btn-block sign-in" type="submit" href="/auth/logout">Выйти</a>
                         </div>
                     <?endif;?>
-
-
-
-                    <div class="text-center">
-                        <a class="btn btn-lg btn-primary btn-block sign-in" type="submit" href="/auth">Sign in</a>
-                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<script>
-    var pag = new URLSearchParams(window.location.search).get('PAG');
-
-</script>

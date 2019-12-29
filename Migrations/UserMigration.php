@@ -4,9 +4,9 @@
 namespace Migrations;
 
 
-use App\Model;
+use App\MigrationModel;
 
-class UserMigration extends Model
+class UserMigration extends MigrationModel
 {
     public function migrate()
     {

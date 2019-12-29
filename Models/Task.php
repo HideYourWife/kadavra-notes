@@ -15,6 +15,15 @@ class Task extends Model
     }
 
 
+    public function update(array $data)
+    {
+
+        $stmp = $this->db->execute("UPDATE $this->tableName SET `text`= ?, `resolved`=?, `updated_at`=? WHERE id=?",
+            array($data['text'], $data['resolved'], $data['updated_at'], $data['id']));
+        return $stmp;
+    }
+
+
     /**
      * @param integer $pageNum current page
      * @param string $order_by sort by

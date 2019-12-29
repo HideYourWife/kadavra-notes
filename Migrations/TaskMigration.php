@@ -4,9 +4,9 @@
 namespace Migrations;
 
 
-use App\Model;
+use App\MigrationModel;
 
-class TaskMigration extends Model
+class TaskMigration extends MigrationModel
 {
     public function migrate()
     {
@@ -15,9 +15,9 @@ class TaskMigration extends Model
                 'CREATE TABLE tasks (
                         id INT NOT NULL AUTO_INCREMENT,
                         name VARCHAR(255) NOT NULL,
-                        email VARCHAR(255) NOT NULL UNIQUE,
+                        email VARCHAR(255) NOT NULL,
                         text TEXT NOT NULL,
-                        created_at timestamp,
+                        resolved TINYINT default NULL,
                         updated_at timestamp,
                         PRIMARY KEY (id))'
             );
