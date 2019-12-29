@@ -48,4 +48,14 @@ abstract class Model
         return $stmp;
     }
 
+    /**
+     * @return integer row count
+     */
+    public function getCount()
+    {
+        $stmp = $this->db->execute("SELECT COUNT(id) FROM $this->tableName");
+        $result = array_values(call_user_func_array('array_merge', $stmp));
+        return $result[0];
+    }
+
 }
